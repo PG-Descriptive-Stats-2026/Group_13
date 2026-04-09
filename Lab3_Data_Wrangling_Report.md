@@ -12,7 +12,11 @@
 
 ## Source
 - Instructor DS repository: [Data_Analysis_Workshops](https://github.com/kflisikowsky/Data_Analysis_Workshops)
-- Working notebook used: [Report1.ipynb](../Report1.ipynb)
+- Working notebook used: [Report1.ipynb](https://github.com/kflisikowsky/Descriptive_Statistics/blob/main/Report1.ipynb)
+
+## Contribution Split
+- Berkant Cora: Exercises 1 to 3
+- Arda Tutmaz: Exercises 4 to 6
 
 ## Exercise 1
 ### Task
@@ -35,7 +39,7 @@ Select the columns `mpg` and `horsepower` from the cars DataFrame using `drop`.
 
 ### Code
 ```python
-cars.drop(columns=["cylinders", "displacement", "weight", "acceleration", "model_year", "origin", "name"]).head()
+cars.drop(columns=cars.columns.difference(["mpg", "horsepower"])).head()
 ```
 
 ### Result (summary)
@@ -60,7 +64,7 @@ The DataFrame keeps all analytical numeric columns and `origin`, while excluding
 This simplifies the table for many wrangling and summary operations by removing columns that may be unnecessary for a specific task.
 
 ## Short Conclusion
-The three exercises demonstrate core data wrangling patterns in `dfply`: selecting variables directly, selecting through inverse dropping, and excluding specific columns for a cleaner analysis table.
+The three exercises demonstrate core data wrangling patterns in pandas: selecting variables directly, selecting through inverse dropping, and excluding specific columns for a cleaner analysis table.
 
 ---
 ## Part 2: Implementation of Additional Exercises (Contributed by Arda Tutmaz)
