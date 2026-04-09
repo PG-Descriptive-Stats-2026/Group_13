@@ -1,8 +1,12 @@
 # Lab 3 - Data Wrangling Report
 
 ## Group Information
-- Group name/number: [fill here]
-- Members: [fill here]
+- Group number: 13
+
+- Members: Berkant Cora           212130
+           Pierre-Antoıne Andrıes 212129
+           Arda Tutmaz            212134
+
 - Course: Descriptive Statistics 2026
 
 ## Source
