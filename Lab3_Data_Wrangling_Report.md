@@ -3,14 +3,15 @@
 ## Group Information
 - Group number: 13
 
-- Members: Berkant Cora           212130
-           Pierre-Antoıne Andrıes 212129
-           Arda Tutmaz            212134
+- Members:
+    - Berkant Cora (212130)
+    - Pierre-Antoine Andries (212129)
+    - Arda Tutmaz (212134)
 
 - Course: Descriptive Statistics 2026
 
 ## Source
-- Instructor DS repository: [add link here]
+- Instructor DS repository: [Data_Analysis_Workshops](https://github.com/kflisikowsky/Data_Analysis_Workshops)
 - Working notebook used: [Report1.ipynb](../Report1.ipynb)
 
 ## Exercise 1

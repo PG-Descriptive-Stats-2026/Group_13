@@ -5,6 +5,5 @@ This repository contains Lab 3 deliverables for Data Wrangling.
 ## Lab 3 Report
 - [Lab3_Data_Wrangling_Report.md](Lab3_Data_Wrangling_Report.md)
 
-## Project Files
-- [final_project.ipynb](final_project.ipynb)
-- [data/housing.csv](data/housing.csv)
+## Resource
+- [Pandas_Cheat_Sheet.pdf](Pandas_Cheat_Sheet.pdf)
