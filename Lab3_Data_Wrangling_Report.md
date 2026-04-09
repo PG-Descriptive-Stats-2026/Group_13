@@ -20,7 +20,7 @@ Select the columns `mpg` and `horsepower` from the cars DataFrame.
 
 ### Code
 ```python
-cars >> select(X.mpg, X.horsepower)
+cars[["mpg", "horsepower"]]
 ```
 
 ### Result (summary)
@@ -35,7 +35,7 @@ Select the columns `mpg` and `horsepower` from the cars DataFrame using `drop`.
 
 ### Code
 ```python
-cars >> drop(~X.mpg, ~X.horsepower) >> head()
+cars.drop(columns=["cylinders", "displacement", "weight", "acceleration", "model_year", "origin", "name"]).head()
 ```
 
 ### Result (summary)
@@ -50,7 +50,7 @@ Select all columns except `model_year` and `name` from the cars DataFrame.
 
 ### Code
 ```python
-cars >> select(~X.model_year, ~X.name) >> head()
+cars.drop(columns=["model_year", "name"]).head()
 ```
 
 ### Result (summary)
