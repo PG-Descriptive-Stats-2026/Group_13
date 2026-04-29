@@ -14,10 +14,6 @@ This repository contains Lab 3 deliverables for Data Wrangling.
 
 This project focuses on performing exploratory data analysis (EDA) and descriptive statistics on the Airbnb dataset. The goal is to identify market trends, pricing patterns, and property distributions using Python's visualization ecosystem.
 
-## Student Information
-**Arda Tutmaz 212134** 
-
-
 ## Dataset
 The analysis is based on the Airbnb dataset available at:
 [Airbnb Dataset Source](https://github.com/kflisikowsky/Descriptive_Statistics/blob/main/data/airbnb.csv)
