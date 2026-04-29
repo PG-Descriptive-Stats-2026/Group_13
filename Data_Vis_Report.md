@@ -3,6 +3,7 @@
 **Authors:**
 - Arda Tutmaz (212134) — Part 1
 - Pierre-Antoine Andries (212129) — Part 2
+- Berkant Cora (212130) — Part 3
 
 ---
 
@@ -18,7 +19,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load the dataset
-url = '[https://raw.githubusercontent.com/kflisikowsky/Descriptive_Statistics/refs/heads/main/data/airbnb.csv](https://raw.githubusercontent.com/kflisikowsky/Descriptive_Statistics/refs/heads/main/data/airbnb.csv)'
+url = 'https://raw.githubusercontent.com/kflisikowsky/Descriptive_Statistics/refs/heads/main/data/airbnb.csv'
 airbnb = pd.read_csv(url, index_col='Unnamed: 0')
 
 # Display the first 5 rows
@@ -142,3 +143,103 @@ plt.show()
 ### Conclusion of Part 2
 
 Part 1 establishes the marginal distributions of price, room type, and geography. Part 2 sharpens the picture by showing that price distributions differ substantially **between** room types (D), and that — among the available numerical features — none of them adds meaningful explanatory signal for price beyond what room type and location already provide (E). Together, the two parts give a coherent first answer to the report's question: in this Airbnb market, price is primarily a categorical and spatial phenomenon, not a function of review activity or availability.
+
+---
+
+## Part 3: Additional Analyses (Contributed by Berkant Cora)
+
+Part 3 extends the report with location-level and robustness-oriented checks. The goal is to answer two practical questions:
+
+- Which boroughs and neighbourhoods are the most expensive on average?
+- Do the main price patterns still hold after reducing the effect of extreme outliers?
+
+### F. Borough and Neighbourhood Price Ranking
+
+To make location analysis easier, we split the combined location column into borough and neighbourhood, then compare median prices.
+
+```python
+# Split neighbourhood_full into borough and neighbourhood
+loc_parts = airbnb['neighbourhood_full'].str.split(',', n=1, expand=True)
+airbnb['borough'] = loc_parts[0].str.strip()
+airbnb['neighbourhood'] = loc_parts[1].str.strip()
+
+# Borough-level median price
+borough_price = (
+    airbnb.groupby('borough')['price_num']
+    .median()
+    .sort_values(ascending=False)
+)
+print('Median price by borough:')
+print(borough_price)
+
+# Top 10 neighbourhoods by median price (with a minimum sample filter)
+neigh_stats = (
+    airbnb.groupby('neighbourhood')['price_num']
+    .agg(median='median', n='count')
+    .query('n >= 20')
+    .sort_values('median', ascending=False)
+    .head(10)
+)
+print('\nTop 10 neighbourhoods by median price (n >= 20):')
+print(neigh_stats)
+```
+
+```python
+plt.figure(figsize=(9, 5))
+sns.barplot(x=borough_price.values, y=borough_price.index, palette='mako')
+plt.title('Median Airbnb Price by Borough')
+plt.xlabel('Median Price ($)')
+plt.ylabel('Borough')
+plt.show()
+```
+
+Insight: Price differences are strongly location-dependent. Borough medians and neighbourhood-level ranking confirm that location is a primary pricing driver, consistent with the earlier geographical visualization.
+
+### G. Availability and Price Relationship
+
+This check tests whether listings that are available for more days per year tend to be cheaper or more expensive.
+
+```python
+plt.figure(figsize=(8, 5))
+sns.regplot(
+    data=airbnb,
+    x='availability_365',
+    y='price_num',
+    scatter_kws={'alpha': 0.15, 's': 20},
+    line_kws={'color': 'red'}
+)
+plt.title('Availability vs Price')
+plt.xlabel('Availability (days per year)')
+plt.ylabel('Price ($)')
+plt.ylim(0, airbnb['price_num'].quantile(0.99))
+plt.show()
+
+print('Correlation (availability_365, price_num):',
+      airbnb[['availability_365', 'price_num']].corr().iloc[0, 1])
+```
+
+Insight: The relationship is weak in magnitude, meaning availability alone is not a strong predictor of price in this dataset.
+
+### H. Outlier-Robust Price Comparison by Room Type
+
+High-end listings can inflate averages. To test robustness, we compare room-type medians before and after trimming the top 1% of prices.
+
+```python
+# Baseline medians
+baseline = airbnb.groupby('room_type')['price_num'].median().rename('baseline_median')
+
+# Trim upper 1% outliers
+cap = airbnb['price_num'].quantile(0.99)
+trimmed = airbnb[airbnb['price_num'] <= cap]
+trimmed_median = trimmed.groupby('room_type')['price_num'].median().rename('trimmed_median')
+
+robust_check = pd.concat([baseline, trimmed_median], axis=1)
+robust_check['difference'] = robust_check['baseline_median'] - robust_check['trimmed_median']
+print(robust_check.sort_values('baseline_median', ascending=False))
+```
+
+Insight: Room-type ordering remains stable after outlier trimming. This supports the reliability of the main conclusion that entire homes/apartments are priced highest, followed by private rooms, then shared rooms.
+
+### Conclusion of Part 3
+
+Part 3 confirms that location is a major determinant of pricing and that the core room-type price hierarchy is robust even when extreme values are reduced. Together with Parts 1 and 2, this strengthens the overall interpretation that Airbnb pricing in this dataset is primarily structured by place and listing type rather than review activity metrics.
