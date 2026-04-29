@@ -22,6 +22,12 @@ import matplotlib.pyplot as plt
 url = 'https://raw.githubusercontent.com/kflisikowsky/Descriptive_Statistics/refs/heads/main/data/airbnb.csv'
 airbnb = pd.read_csv(url, index_col='Unnamed: 0')
 
+# Minimal cleaning required for Part 1 visualizations
+airbnb['price_num'] = pd.to_numeric(airbnb['price'].str.replace('$', '', regex=False), errors='coerce')
+coords = airbnb['coordinates'].str.replace('[()]', '', regex=True).str.split(',', expand=True)
+airbnb['latitude'] = pd.to_numeric(coords[0], errors='coerce')
+airbnb['longitude'] = pd.to_numeric(coords[1], errors='coerce')
+
 # Display the first 5 rows
 print(airbnb.head())
 ```
@@ -42,7 +48,7 @@ We use a histogram to visualize how the prices of Airbnb listings are distribute
 
 ```python
 plt.figure(figsize=(10, 6))
-sns.histplot(airbnb['price'], bins=50, kde=True, color='skyblue')
+sns.histplot(airbnb['price_num'].dropna(), bins=50, kde=True, color='skyblue')
 plt.title('Distribution of Airbnb Prices')
 plt.xlabel('Price')
 plt.ylabel('Frequency')
@@ -68,7 +74,7 @@ By plotting the latitude and longitude, we can map the listings. Adding price as
 
 ```python
 plt.figure(figsize=(10, 6))
-sns.scatterplot(data=airbnb, x='longitude', y='latitude', hue='price', palette='coolwarm', alpha=0.6)
+sns.scatterplot(data=airbnb, x='longitude', y='latitude', hue='price_num', palette='coolwarm', alpha=0.6)
 plt.title('Geographical Distribution of Listings by Price')
 plt.xlabel('Longitude')
 plt.ylabel('Latitude')
