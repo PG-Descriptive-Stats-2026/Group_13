@@ -33,6 +33,5 @@ The analysis is based on the Airbnb dataset available at:
 [Airbnb Dataset Source](https://github.com/kflisikowsky/Descriptive_Statistics/blob/main/data/airbnb.csv)
 
 ## Contents
-The reports below are intended to be read in order — cleansing first, then visualization on the cleaned dataset:
-* [Data Cleansing Report](Data_Cleansing_Report.md)
+The reports below are intended:
 * [Data Visualization Report](Data_Vis_Report.md)
