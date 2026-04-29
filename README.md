@@ -10,14 +10,15 @@ This repository contains Lab 3 deliverables for Data Wrangling.
 
 ---
 
-# Airbnb Data Visualization
+# Airbnb Data Analysis
 
-This project focuses on performing exploratory data analysis (EDA) and descriptive statistics on the Airbnb dataset. The goal is to identify market trends, pricing patterns, and property distributions using Python's visualization ecosystem.
+This project performs data cleansing, exploratory data analysis (EDA), and descriptive statistics on the Airbnb dataset. The goal is to identify market trends, pricing patterns, and property distributions using Python's data-wrangling and visualization ecosystem.
 
 ## Dataset
 The analysis is based on the Airbnb dataset available at:
 [Airbnb Dataset Source](https://github.com/kflisikowsky/Descriptive_Statistics/blob/main/data/airbnb.csv)
 
 ## Contents
-For a detailed breakdown of the visualizations and statistical interpretations, please refer to the report:
+The reports below are intended to be read in order — cleansing first, then visualization on the cleaned dataset:
+* [Data Cleansing Report](Data_Cleansing_Report.md)
 * [Data Visualization Report](Data_Vis_Report.md)
