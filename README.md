@@ -20,4 +20,4 @@ The analysis is based on the Airbnb dataset available at:
 
 ## Contents
 For a detailed breakdown of the visualizations and statistical interpretations, please refer to the report:
-* [Data Visualization Report (Report.md)](Report.md)
+* [Data Visualization Report](Data_Vis_Report.md)
