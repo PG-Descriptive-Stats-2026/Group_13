@@ -21,6 +21,7 @@ This project is divided into different phases. You can view the detailed reports
 
 ## Dataset
 The project uses the Airbnb dataset: [airbnb.csv](https://github.com/kflisikowsky/Descriptive_Statistics/blob/main/data/airbnb.csv)
+
 ---
 
 # Airbnb Data Analysis
