@@ -1,7 +1,8 @@
 # Airbnb Data Visualization and Descriptive Statistics Report
 
-**Author:** Arda Tutmaz  
-**Student ID:** 212134  
+**Authors:**
+- Arda Tutmaz (212134) — Part 1
+- Pierre-Antoine Andries (212129) — Part 2
 
 ---
 
@@ -73,3 +74,71 @@ plt.ylabel('Latitude')
 plt.show()
 ```
 **Insight:** Prices are not evenly distributed; certain geographic clusters command much higher prices, likely indicating city centers or popular tourist areas.
+
+---
+
+## Part 2: Additional Analyses (Contributed by Pierre-Antoine Andries)
+
+The Part 1 visualizations look at price overall, room-type frequency, and geography in isolation. Part 2 adds two analyses that address descriptive-statistics concepts not yet covered in the report: **how the price distribution varies *across* room types** (central tendency and dispersion within categories), and **how the numerical features relate to one another** (multivariate correlation).
+
+### Data Preparation for Part 2
+
+Two short cleanups are needed before the analyses below can run on the raw dataset:
+
+```python
+# Price is stored as a string with a "$" suffix (e.g. "45$") -> cast to float
+airbnb['price_num'] = airbnb['price'].str.replace('$', '', regex=False).astype(float)
+
+# Room type has trailing whitespace and case variants (e.g. "PRIVATE ROOM",
+# "   Shared room") that split otherwise-identical categories. Normalize.
+airbnb['room_type'] = airbnb['room_type'].str.strip().str.title()
+```
+
+**Note:** After normalization, two small residue categories remain (`Private` with 89 listings, `Home` with 66 listings) that look like truncated entries in the source data. They are kept in the analyses below as a transparent record of the underlying data quality, but the bulk of the ~9,950 listings sit in the three canonical categories `Entire Home/Apt`, `Private Room`, and `Shared Room`.
+
+### D. Price Distribution by Room Type
+
+The Part 1 histogram pools every listing into a single distribution, and the count plot shows how many listings exist per room type, but neither shows how *price itself* differs across room types. A box plot per room type makes the per-category median, IQR, whiskers, and outliers visible in a single figure.
+
+```python
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=airbnb, x='room_type', y='price_num', palette='viridis')
+plt.title('Price Distribution by Room Type')
+plt.xlabel('Room Type')
+plt.ylabel('Price ($)')
+plt.show()
+
+summary = airbnb.groupby('room_type')['price_num'].agg(
+    n='count', mean='mean', median='median', std='std',
+    q1=lambda s: s.quantile(0.25), q3=lambda s: s.quantile(0.75)
+)
+summary['iqr'] = summary['q3'] - summary['q1']
+print(summary.round(2))
+```
+
+**Insight:** `Entire Home/Apt` has by far the highest central tendency (median ≈ $163, mean ≈ $209) and the widest dispersion (IQR ≈ 110, std ≈ 251), confirming that this category is both the most expensive and the most variable. `Private Room` listings cluster much lower (median ≈ $70, IQR ≈ 44) and `Shared Room` listings are the cheapest (median ≈ $50). The mean exceeds the median in every category, which quantifies — per group — the right-skew that Part 1 observed on the pooled distribution.
+
+### E. Correlation Matrix of Numerical Features
+
+Part 1 is mostly univariate or bivariate-by-geography. A correlation heatmap brings all numerical features into one view to check whether `price` is related to review activity, availability, or rating, and to detect redundancy between features.
+
+```python
+num_cols = ['price_num', 'number_of_reviews', 'reviews_per_month',
+            'availability_365', 'rating', 'number_of_stays', '5_stars']
+corr = airbnb[num_cols].corr(method='pearson')
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr, annot=True, fmt='.2f', cmap='coolwarm',
+            vmin=-1, vmax=1, center=0, square=True)
+plt.title('Pearson Correlation — Numerical Features')
+plt.show()
+```
+
+**Insight:** Three findings stand out.
+1. `price_num` correlates only weakly with every other numerical feature (|r| < 0.1). This is a strong negative finding: price is **not** explained by review counts, availability, or rating, which means the price drivers shown in Part 1 — location and room type — are not just one signal among many but the dominant ones.
+2. `number_of_reviews` and `number_of_stays` are perfectly correlated (r = 1.00). They carry the same signal and one of them is redundant for any further modeling. `reviews_per_month` correlates ~0.54 with both, which is consistent with it being a derived rate rather than an independent measurement.
+3. `rating` and `5_stars` correlate moderately (r ≈ 0.36) but not strongly, suggesting the share of 5-star reviews is only a partial proxy for the overall rating.
+
+### Conclusion of Part 2
+
+Part 1 establishes the marginal distributions of price, room type, and geography. Part 2 sharpens the picture by showing that price distributions differ substantially **between** room types (D), and that — among the available numerical features — none of them adds meaningful explanatory signal for price beyond what room type and location already provide (E). Together, the two parts give a coherent first answer to the report's question: in this Airbnb market, price is primarily a categorical and spatial phenomenon, not a function of review activity or availability.
