@@ -9,6 +9,19 @@ This repository contains Lab 3 deliverables for Data Wrangling.
 - [Pandas_Cheat_Sheet.pdf](Pandas_Cheat_Sheet.pdf)
 
 ---
+# Data Cleansing
+
+This repository contains my data manipulation, cleansing, and visualization projects for the Descriptive Statistics course.
+
+
+## Project Contents
+This project is divided into different phases. You can view the detailed reports below:
+
+**[Data Cleansing Report](Data_Cleansing_Report.md)** - *Focuses on preparing, cleaning, and formatting the raw data.*
+
+## Dataset
+The project uses the Airbnb dataset: [airbnb.csv](https://github.com/kflisikowsky/Descriptive_Statistics/blob/main/data/airbnb.csv)
+---
 
 # Airbnb Data Analysis
 
