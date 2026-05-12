@@ -1,5 +1,9 @@
 # Airbnb Data Visualization and Descriptive Statistics Report
 
+**⚠️ IMPORTANT NOTE FOR EVALUATION:**
+Since Markdown does not render Python charts directly, we have compiled the fully executable notebook with all the generated visualizations. 
+👉 **[Click here to view the Interactive Google Colab Notebook with all charts](https://colab.research.google.com/drive/1QCgykkuPID-8Uii-2L_UvPTP45d8GgUK?usp=sharing)** 👈
+
 **Authors:**
 - Arda Tutmaz (212134) — Part 1
 - Pierre-Antoine Andries (212129) — Part 2

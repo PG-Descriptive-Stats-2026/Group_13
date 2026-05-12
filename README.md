@@ -33,4 +33,6 @@ The analysis is based on the Airbnb dataset available at:
 [Airbnb Dataset Source](https://github.com/kflisikowsky/Descriptive_Statistics/blob/main/data/airbnb.csv)
 
 ## Contents
-* [Data Visualization Report](Data_Vis_Report.md)
+For a detailed breakdown of the visualizations and statistical interpretations, please refer to the deliverables:
+* **[Interactive Google Colab Notebook (Contains all visualisations/charts)](https://colab.research.google.com/drive/1QCgykkuPID-8Uii-2L_UvPTP45d8GgUK?usp=sharing)**
+* [Data Visualization Report (Static Markdown)](Data_Vis_Report.md)
