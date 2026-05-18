@@ -36,3 +36,20 @@ The analysis is based on the Airbnb dataset available at:
 For a detailed breakdown of the visualizations and statistical interpretations, please refer to the deliverables:
 * **[Interactive Google Colab Notebook (Contains all visualisations/charts)](https://colab.research.google.com/drive/1QCgykkuPID-8Uii-2L_UvPTP45d8GgUK?usp=sharing)**
 * [Data Visualization Report (Static Markdown)](Data_Vis_Report.md)
+
+---
+
+## 📊 Exercise 8: Univariate Analysis
+
+This study covers the fundamentals of univariate analysis and descriptive statistics in data science, applied practically on datasets using Python. The project utilizes both standard statistical measures and robust methods that are resistant to outliers.
+
+### Project Notebook
+You can access the full analysis and codes directly here: [Exercise8.ipynb](Exercise8.ipynb)
+
+### 🛠 Applications and Solutions
+1. **Gapminder Dataset Analysis:** Filtered life expectancy (`life_exp`) data for European countries in the year 2007 to analyze the mean, median, and quartiles. Discussed the applicability of central tendency measures on categorical variables.
+2. **Pokémon Dataset Statistics:** * Compared the `Speed` and `Attack` stats of `Legendary` and Non-Legendary Pokémon.
+   * Calculated the Standard Deviation (STD), Coefficient of Variation (CV), and IQR deviations for these two groups.
+3. **Robust Statistics Calculations:** Manually calculated the **IQR Skewness** and **IQR Kurtosis** coefficients for the given sample data sequences (`mydata`) strictly based on the formulas.
+4. **Data Visualization:** Generated **Boxplots** and **Violin Plots** to observe the distribution and density of the data, and included cross-sectional interpretations of the charts.
+
